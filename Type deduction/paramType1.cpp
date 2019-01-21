@@ -2,11 +2,15 @@
 
 using namespace std;
 
+template<typename T>
+class TypeDisplay;
+
 //template<typename T>
 //void fun(ParamType param)
 template <typename T>
 void fun(T& param)
-{
+{   
+    //TypeDisplay<decltype(param)> x;
     cout <<__PRETTY_FUNCTION__ <<'\n';
     cout <<typeid(param).name() <<'\n';
 }
