@@ -2,8 +2,8 @@
 
 using namespace std;
 
-template<typename T>
-class TypeDisplay;
+//template<typename T>
+//class TypeDisplay;
 
 //template<typename T>
 //void fun(ParamType param)
