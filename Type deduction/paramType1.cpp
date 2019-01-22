@@ -1,18 +1,15 @@
 #include <iostream>
+#include <boost/type_index.hpp>
 
 using namespace std;
-
-template <typename T>
-void paramType()
-{
-    cout <<__PRETTY_FUNCTION__ <<'\n';
-}
+using boost::typeindex::type_id_with_cvr;
 
 template <typename T>
 void fun(T& param)
 {   
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    paramType<decltype(param)>();
+    cout <<"T = " <<type_id_with_cvr<T>().pretty_name() <<'\n';
+    cout <<"param = " <<type_id_with_cvr<decltype(param)>().pretty_name() <<'\n';
 }
 
 void example1()
@@ -39,7 +36,8 @@ template <typename T>
 void funC(const T& param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-     paramType<decltype(param)>();
+    cout <<"T = " <<type_id_with_cvr<T>().pretty_name() <<'\n';
+    cout <<"param = " <<type_id_with_cvr<decltype(param)>().pretty_name() <<'\n';
 }
 
 void example1C()
@@ -66,7 +64,8 @@ template <typename T>
 void funP(T* param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    paramType<decltype(param)>();
+    cout <<"T = " <<type_id_with_cvr<T>().pretty_name() <<'\n';
+    cout <<"param = " <<type_id_with_cvr<decltype(param)>().pretty_name() <<'\n';
 }
 void example1P()
 {
@@ -90,7 +89,8 @@ template <typename T>
 void funCP(const T* param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    paramType<decltype(param)>();
+    cout <<"T = " <<type_id_with_cvr<T>().pretty_name() <<'\n';
+    cout <<"param = " <<type_id_with_cvr<decltype(param)>().pretty_name() <<'\n';
 }
 void example1CP()
 {
@@ -112,9 +112,13 @@ void example1CP()
 int main(int argc, char* argv[])
 {
     example1();
+    cout <<endl;
     example1C();
+    cout <<endl;
     example1P();
+    cout <<endl;
     example1CP();
+    cout <<endl;
     
     return 0;
 }
