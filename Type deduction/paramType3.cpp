@@ -2,13 +2,19 @@
 
 using namespace std;
 
+template <typename T>
+void paramType()
+{
+    cout <<__PRETTY_FUNCTION__ <<'\n';
+}
+
 //template<typename T>
 //void fun(ParamType param)
 template <typename T>
 void fun(T param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    cout <<typeid(param).name() <<'\n';
+    paramType<decltype(param)>();
 }
 
 void example1()

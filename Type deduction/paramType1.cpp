@@ -39,7 +39,7 @@ template <typename T>
 void funC(const T& param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    cout <<typeid(param).name() <<'\n';
+     paramType<decltype(param)>();
 }
 
 void example1C()
@@ -66,7 +66,7 @@ template <typename T>
 void funP(T* param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    cout <<typeid(param).name() <<'\n';
+    paramType<decltype(param)>();
 }
 void example1P()
 {
@@ -90,7 +90,7 @@ template <typename T>
 void funCP(const T* param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    cout <<typeid(param).name() <<'\n';
+    paramType<decltype(param)>();
 }
 void example1CP()
 {

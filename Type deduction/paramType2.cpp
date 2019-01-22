@@ -2,13 +2,19 @@
 
 using namespace std;
 
+template <typename T>
+void paramType()
+{
+    cout <<__PRETTY_FUNCTION__ <<'\n';
+}
+
 //template<typename T>
 //void fun(ParamType param)
 template <typename T>
 void fun(T&& param)
 {
     cout <<__PRETTY_FUNCTION__ <<'\n';
-    cout <<typeid(param).name() <<'\n';
+    paramType<decltype(param)>();
 }
 
 void example1()
@@ -31,8 +37,11 @@ void example1()
    const int& rx = x;   //rx to odwołanie do x jako const int
 
    fun(x);              //x to l-wartość, T to int&, typ param to int&
+   cout <<endl;
    fun(cx);             //cx to l-wartość, T to const int&, param to const int&
+   cout <<endl;
    fun(rx);             //rx to l-wartość, T to const int&, param to const int&;
+   cout <<endl;
    fun(27);             //27 to r-wartość, T to int, param to int&&
 }
 
