@@ -11,7 +11,6 @@ void paramType()
 template <typename T>
 void fun(T& param)
 {   
-    //TypeDisplay<decltype(param)> x;
     cout <<__PRETTY_FUNCTION__ <<'\n';
     paramType<decltype(param)>();
 }
