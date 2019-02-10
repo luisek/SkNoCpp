@@ -37,7 +37,7 @@ namespace mpb
         using Pointer = T*;
         using Value = T;
 
-        constexpr sharedPtr() : p{new T()}, ctrl{new ControlBlock}
+        constexpr sharedPtr() : p{nullptr}, ctrl{nullptr}
         {
         }
 
@@ -102,7 +102,7 @@ namespace mpb
             }
         }
 
-        bool operator==(const sharedPtr<T>& other)
+        bool operator==(const sharedPtr<T>& other) const
         {
             if(p == other.p)
                 return true;

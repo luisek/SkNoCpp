@@ -34,5 +34,7 @@ int main(int argc, char* argv[])
 
     auto newSharedValue(move(witValue));
 
+    auto new2SharedValue = move(newSharedValue);
+
     return 0;
 }
