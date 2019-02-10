@@ -32,5 +32,7 @@ int main(int argc, char* argv[])
 
     mpb::sharedPtr<C> witValue(C(12));
 
+    auto newSharedValue(move(witValue));
+
     return 0;
 }

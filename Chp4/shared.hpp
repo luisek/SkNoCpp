@@ -36,6 +36,7 @@ namespace mpb
     public:
         using Pointer = T*;
         using Value = T;
+
         constexpr sharedPtr() : p{new T()}, ctrl{new ControlBlock}
         {
         }
@@ -52,21 +53,19 @@ namespace mpb
             ctrl = new ControlBlock();
         }
 
-        constexpr sharedPtr(const sharedPtr& rt)
+        constexpr sharedPtr(const sharedPtr<T>& rt)
         {
-            p = new T();
             p = rt.p;
             ctrl = rt.ctrl;
             ctrl->incrementShared();
         }
 
-        sharedPtr& operator=(const sharedPtr& rt)
+        sharedPtr& operator=(const sharedPtr<T>& rt)
         {
             if(*this == rt)
                 return *this;
             delete p;
             delete ctrl;
-            p = new T;
             p = rt.p;
             ctrl = rt.ctrl;
             ctrl->incrementShared();
@@ -74,15 +73,13 @@ namespace mpb
             return *this;
         }
 
-        constexpr sharedPtr(sharedPtr&& rt)
+        constexpr sharedPtr(sharedPtr<T>&& rt) : p{rt.p}, ctrl{rt.ctrl}
         {
-            p = rt.p;
-            ctrl = rt.ctrl;
             rt.p = nullptr;
             rt.ctrl = nullptr;
         }
 
-        sharedPtr& operator=(sharedPtr&& rt)
+        sharedPtr& operator=(sharedPtr<T>&& rt)
         {
             p = rt.p;
             ctrl = rt.ctrl;
@@ -94,11 +91,14 @@ namespace mpb
 
         ~sharedPtr()
         {
-            ctrl->decrementShared();
-            if(0 == ctrl->getSharedCount())
+            if(ctrl)
             {
-                delete p;
-                delete ctrl;
+                ctrl->decrementShared();
+                if(0 == ctrl->getSharedCount())
+                {
+                    delete p;
+                    delete ctrl;
+                }
             }
         }
 
