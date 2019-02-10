@@ -17,12 +17,10 @@ namespace mpb
         void incrementShared()
         {
             ++sharedCounter;
-            std::cout <<__PRETTY_FUNCTION__ <<sharedCounter <<std::endl;
         }
         void decrementShared()
         {
             --sharedCounter;
-            std::cout <<__PRETTY_FUNCTION__ <<sharedCounter <<std::endl;
         }
         int getSharedCount()
         {
@@ -37,14 +35,26 @@ namespace mpb
     {
     public:
         using Pointer = T*;
-        constexpr sharedPtr()
+        using Value = T;
+        constexpr sharedPtr() : p{new T()}, ctrl{new ControlBlock}
         {
-            p = new T;
-            ctrl = new ControlBlock;
+        }
+
+        constexpr sharedPtr(Pointer value)
+        {
+            p = value;
+            ctrl = new ControlBlock();
+        }
+
+        constexpr sharedPtr(Value value)
+        {
+            p = new T(value);
+            ctrl = new ControlBlock();
         }
 
         constexpr sharedPtr(const sharedPtr& rt)
         {
+            p = new T();
             p = rt.p;
             ctrl = rt.ctrl;
             ctrl->incrementShared();
@@ -52,6 +62,11 @@ namespace mpb
 
         sharedPtr& operator=(const sharedPtr& rt)
         {
+            if(*this == rt)
+                return *this;
+            delete p;
+            delete ctrl;
+            p = new T;
             p = rt.p;
             ctrl = rt.ctrl;
             ctrl->incrementShared();
@@ -85,6 +100,13 @@ namespace mpb
                 delete p;
                 delete ctrl;
             }
+        }
+
+        bool operator==(const sharedPtr<T>& other)
+        {
+            if(p == other.p)
+                return true;
+            return false;
         }
         
     private:

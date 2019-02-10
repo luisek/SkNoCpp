@@ -23,13 +23,14 @@ struct C
 
 int main(int argc, char* argv[])
 {
-    mpb::sharedPtr<C>* sp =  new mpb::sharedPtr<C>();
-    cout <<"after sp\n";
-    mpb::sharedPtr<C> sp1(*sp);
-    delete sp;
-    cout <<"after sp1\n";
+    mpb::sharedPtr<C> emptyShared;
 
-    std::shared_ptr<C> spStd = make_shared<C>();
+    mpb::sharedPtr<C> valueC(new C(12));
+
+    emptyShared = valueC;
+    mpb::sharedPtr<C> newC(valueC);
+
+    mpb::sharedPtr<C> witValue(C(12));
 
     return 0;
 }
