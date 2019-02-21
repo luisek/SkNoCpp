@@ -11,13 +11,13 @@ namespace mpb
         uniquePtr(const uniquePtr&) = delete;
         uniquePtr& operator=(const uniquePtr&) = delete;
 
-        uniquePtr(Pointer pt)
+        uniquePtr(Pointer pt) noexcept
         {
             p = pt;
         }
-        constexpr uniquePtr()
+        constexpr uniquePtr() noexcept
         {
-            p = new T;
+            p = nullptr;
         }
 
         ~uniquePtr()
@@ -25,7 +25,7 @@ namespace mpb
             delete p;
         }
 
-        uniquePtr(uniquePtr&& rt)
+        uniquePtr(uniquePtr&& rt) noexcept
         {
             p = rt.p;
             rt.p = nullptr;
@@ -45,12 +45,11 @@ namespace mpb
 
     private:
         
-        Pointer p = nullptr;
+        Pointer p;
     };
 
 template<typename T, typename... Ts>
-//uniquePtr<T> 
-decltype(auto) make_unique(Ts&&... params)
+uniquePtr<T> make_unique(Ts&&... params)
 {
     return uniquePtr<T>(new T(std::forward<Ts>(params)...));
 }

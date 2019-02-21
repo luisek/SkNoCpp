@@ -24,7 +24,7 @@ struct C
 
 int main(int argc, char* argv[])
 {
-    mpb::uniquePtr<C> myC;
+    mpb::uniquePtr<C> myC(new C());
     mpb::uniquePtr<C> myC2(new C(12));
 
     mpb::uniquePtr<C> myC3 = mpb::make_unique<C>();
