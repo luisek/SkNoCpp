@@ -1,10 +1,13 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 
 namespace mpb
 {
     template<typename T>
-    decltype(auto) move(T&& param)
+    //typename std::remove_reference<T>::type&&
+    decltype(auto) 
+    move(T&& param)
     {
         std::cout <<__PRETTY_FUNCTION__ <<std::endl;
         using ReturnType = typename std::remove_reference<T>::type&&;
@@ -35,10 +38,10 @@ public:
         ++counter;
         name = mpb::move(other.name);
     }
-
+    static int counter;
 private:
     std::string name;
-    static int counter;
+    
 };
 
 int Widget::counter = 0;
@@ -63,12 +66,38 @@ private:
     Widget ww;
 };
 
+void process(const Widget& lw)
+{
+    std::cout <<__PRETTY_FUNCTION__ <<std::endl;
+    std::cout << lw.counter <<std::endl;
+}
+
+void process(const Widget&& rw)
+{
+    std::cout <<__PRETTY_FUNCTION__ <<std::endl;
+    std::cout <<rw.counter <<std::endl;
+}
+
+template<typename T>
+void logAndProcess(T&& param)
+{
+    auto now = std::chrono::system_clock::now();
+    std::cout <<__PRETTY_FUNCTION__ << std::endl;
+    std::cout <<"LOG: YOLO!" <<std::endl;
+    //std::cout <<"LOG: " <<std::chrono::duration<double>(now) <<std::endl;
+    process(std::forward<T>(param));
+}
 
 int main(int argc, char* argv[])
 {
-    const Widget w("Ab");
+    const Widget cw("Ab");
 
-    Annotation an(w);
+    Annotation an(cw);
+
+    Widget w("Ww");
+
+    logAndProcess(w);
+    logAndProcess(mpb::move(w));
 
     return 0;
 }
