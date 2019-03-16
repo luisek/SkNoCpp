@@ -2,11 +2,52 @@
 #include <functional>
 #include <vector>
 #include <algorithm>
+#include <memory>
 
 using namespace std;
 
 using FilterContainer = vector<function<bool(int)>>;
 FilterContainer filters;
+
+class Widget
+{
+public:
+    Widget() : divisor{3}
+    {}
+    void addFilter()
+    {
+        auto copyDivisor = divisor;
+        filters.emplace_back(
+            [copyDivisor](int value) {return value % copyDivisor == 0;}
+        );
+    }
+private:
+    int divisor;
+};
+
+void doSomeWork()
+{
+    /*
+    void addFilter()
+    {
+        auto copyThis = this;
+        filters.emplace_back(
+            [copyThis](int value) {return value % copyThis->divisor == 0;}
+        );
+    }
+    ponieważ lambda przechwytuje przez kopię wskaźnik this powoduje to w następstwie zawiśnięcie wskaźnika
+    w poniższym kodzie tworzymy wskaźnik klasy Widget który wywołuje addFilter po wykoniau fukncji uruchomienie
+    którejś z funkcji znajdujących się w filters spowoduje booom!
+    Rozwiązanie stworzyć kopię divisor;
+    auto divisorCopy = divisor
+    C++14:
+    [divisor=divisor]
+    */
+    auto pw = make_unique<Widget>();
+
+    pw->addFilter();
+}
+
 
 int computeValue1()
 {
@@ -73,10 +114,16 @@ void workWithContainer(const C& container)
 
 int main()
 {
-    addDivisorFilter();
+/*    addDivisorFilter();
     for(auto f : filters)
     {
         cout << f(9) <<'\n';
+    }
+*/
+    doSomeWork();
+    for(auto fun : filters)
+    {
+        cout <<fun(3) <<endl;
     }
 
     vector<int> values{3, 6, 9, 12, 15, 2};
