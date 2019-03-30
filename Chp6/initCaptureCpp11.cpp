@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
     //lub można też krócej
     cout <<"Start\n";
     auto func2 = std::bind(
-        [](const unique_ptr<Widget>& ptr)
+        [=](const unique_ptr<Widget>& ptr)
         {
             return ptr->isCorrect() && ptr->isValidated();
         },
