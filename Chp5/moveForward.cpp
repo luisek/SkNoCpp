@@ -79,20 +79,21 @@ void process(const Widget&& rw)
 }
 
 template<typename T>
-void logAndProcess(T&& param)
-{
+void logAndProcess(T&& param)//T&
+{ 
     auto now = std::chrono::system_clock::now();
     std::cout <<__PRETTY_FUNCTION__ << std::endl;
     std::cout <<"LOG: YOLO!" <<std::endl;
     //std::cout <<"LOG: " <<std::chrono::duration<double>(now) <<std::endl;
     process(std::forward<T>(param));
+    //działa!!->//process(static_cast<T&&>(param));// T& &&
 }
 
 int main(int argc, char* argv[])
 {
-    const Widget cw("Ab");
+    //const Widget cw("Ab");
 
-    Annotation an(cw);
+    //Annotation an(cw);
 
     Widget w("Ww");
 
