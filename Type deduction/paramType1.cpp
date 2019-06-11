@@ -6,7 +6,7 @@ using boost::typeindex::type_id_with_cvr;
 
 template <typename T>
 void fun(T& param)
-{   
+{
     cout <<__PRETTY_FUNCTION__ <<'\n';
     cout <<"T = " <<type_id_with_cvr<T>().pretty_name() <<'\n';
     cout <<"param = " <<type_id_with_cvr<decltype(param)>().pretty_name() <<'\n';
@@ -48,7 +48,7 @@ void example1C()
         1. Jeśli typ wyrażenia exp to odwołanie uniwersalne to zignoruj jego referencyjność
         2. Następnie dopasuj do wzorca typ wyrażenia expr wzdlędem ParamType, aby wyznaczyć T.
     */
-   
+
    int x = 27;
    const int cx = x;    //cx to const int
    const int& rx = x;   //rx to odwołanie do x jako const int
@@ -75,10 +75,10 @@ void example1P()
         1. Jeśli typ wyrażenia exp to odwołanie uniwersalne to zignoruj jego referencyjność
         2. Następnie dopasuj do wzorca typ wyrażenia expr wzdlędem ParamType, aby wyznaczyć T.
     */
-   
+
    int x = 27;
    const int* cx = &x;    //cx to const int
-   
+
    funP(&x);             //T to int, typ param to int*
    funP(cx);             //T to const int, param to const int*
 }
@@ -100,10 +100,10 @@ void example1CP()
         1. Jeśli typ wyrażenia exp to odwołanie uniwersalne to zignoruj jego referencyjność
         2. Następnie dopasuj do wzorca typ wyrażenia expr wzdlędem ParamType, aby wyznaczyć T.
     */
-   
+
    int x = 27;
    const int* cx = &x;    //cx to const int
-   
+
    funCP(&x);             //T to int, typ param to const int*
    funCP(cx);             //T to int, param to const int*
 }
@@ -119,6 +119,6 @@ int main(int argc, char* argv[])
     cout <<endl;
     example1CP();
     cout <<endl;
-    
+
     return 0;
 }

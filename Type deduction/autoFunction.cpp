@@ -20,7 +20,8 @@ decltype(auto) validUser2(vector<int>& _vect, int index)
 decltype(auto) validUser3(vector<int>&& _vect, int index)
 {
     cout <<__PRETTY_FUNCTION__ <<endl;
-    return forward<vector<int>>(_vect)[index];
+    //return forward<vector<int>>(_vect)[index];
+    return _vect[index];
 }
 
 int main(int argc, char const *argv[])
@@ -47,7 +48,7 @@ int main(int argc, char const *argv[])
         cout <<a <<", ";
     }
     cout <<endl;
-    
+
     cout <<"validUser3 = " <<type_id_with_cvr<decltype(validUser3({1,2,3,4,5,6},2))>().pretty_name() <<'\n';
     for(const auto& a : arr)
     {
