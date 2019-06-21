@@ -49,6 +49,7 @@ public:
         std::lock_guard<std::mutex> lock(m);
         return data.empty();
     }
+
 private:
     std::stack<T> data;
     mutable std::mutex m;
