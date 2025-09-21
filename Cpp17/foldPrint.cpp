@@ -17,6 +17,11 @@ auto push_back_vect(std::vector<T>& cont, Args&& ...args)
     (cont.push_back(std::forward<Args>(args)),...);
 }
 
+template <typename ... T>
+auto sum(T ... args)
+{
+    return (args + ...);
+}
 
 int main()
 {
@@ -28,4 +33,6 @@ int main()
     {
         std::cout <<el <<' ';
     }
+
+    std::cout <<sum();
 }

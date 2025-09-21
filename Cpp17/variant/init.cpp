@@ -1,5 +1,6 @@
 #include <iostream>
 #include <variant>
+#include <vector>
 
 using namespace std;
 
@@ -38,6 +39,7 @@ public:
 
 int main()
 {
+    variant<int, int, int> ii;
     variant<monostate, NotSimple, int> okInit;
     cout <<"index: " <<okInit.index() <<endl;
     okInit = NotSimple{1,1.2f};
