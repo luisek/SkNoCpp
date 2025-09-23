@@ -1,0 +1,36 @@
+# Ignore build directories
+/build/
+/CMakeFiles/
+/cmake-build-*/
+
+# Ignore CMake generated files
+CMakeCache.txt
+CMakeLists.txt.user
+Makefile
+*.cmake
+
+# Ignore executables and object files
+*.exe
+*.out
+*.o
+*.obj
+*.so
+*.a
+*.dll
+
+# Ignore editor and IDE files
+*.swp
+*.swo
+*.user
+*.log
+*.vscode/
+*.idea/
+
+# Ignore generated binaries in variant folder
+/Cpp17/variant/build/
+/Cpp17/variant/*.exe
+/Cpp17/variant/*.out
+
+# Ignore core dumps
+core
+*.core
