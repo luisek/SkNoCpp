@@ -1,5 +1,7 @@
 # Ignore build directories
-/build/
+.cache
+build/
+**/build/
 /CMakeFiles/
 /cmake-build-*/
 
